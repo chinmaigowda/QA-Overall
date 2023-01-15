@@ -144,41 +144,246 @@
   144*  evicting pod from a node
   145*  node pool - nothing but node pod affinity antiaffinity topic .. 
   146* Assume only one master node - what if it crashes, vl application run
+  
+  
   147* How do u solve this issue if master crashes
   148* What if a node crashes , how do u debug or get logs and troubleshoot it 
   149* Where the logs of application are saved .
   150* Command to get the logs . 
   151* Many other scenario based questions on trouble shooting kubernetes cluster issues
+  
+  
   152* Where have u set up kubernetes,  self managed or EKs
+  
+   k8s is set up in clud .it is self managed cluster
+   
   153* Kubernetes taint nodes
-  154* How to control taint nodes - ans is node controller
+  
+  
+  154* How to control taint nodes - 
+     ans is node controller
+  
   155* Load balancer- configurations done for load balancer in config file 
+  Session Affinity
+  Health check
+  Sticky session
+   etc.
+  
   156* Kubernetes probes - liveliness and readiness
+     
+     K8S robe are periodeic check of apllication running inside a pod within acluster
+     
+     liveliness probe: thsi will check health of the pod annd if the health cjweck fails the pod will be restarted or will try to restart by kubelet
+     
+     readiness: this probe will check whether the pod willbe able to accept the traffic or not
+     
+     CRASHLOPBACKOFF error will show if probe check is failed
+     
   157* The application deployment is successful but still pod is not up what could be the reason
+  
+  Resource constraints: The pod may not have enough resources such as CPU or memory to start and run. You can check the resource usage of the pod using the kubectl describe pod command.
+
+Configuration issues: The pod's configuration, such as environment variables or volumes, may be incorrect. You can check the configuration of the pod using the kubectl describe pod command.
+
+Networking issues: The pod may not be able to communicate with other resources in the cluster due to a problem with the network configuration. You can check the networking status of the pod using the kubectl describe pod command and also check the logs of the pod.
+
+Container image issues: The container image may be missing, corrupt, or have the wrong tag. You can check the container image of the pod using the kubectl describe pod command.
+
+Dependency Issues: The pod may be dependent on other resources, such as services or configmaps, that are not available. You can check the dependencies of the pod using the kubectl describe pod command.
+
+Liveness and readiness probes: Make sure the liveness and readiness probe are set correctly. These probes are used by Kubernetes to check if the pod is running and healthy or not.
+
+CrashLoopBackOff: This error state indicates that the container is crashing repeatedly and Kubernetes is trying to restart it. You can check the logs of the pod to see the reason why it's crashing.
+  
+  
+  
   158*  How do u manage ur k8s env in prod?
+  Monitor and Logging: Monitor the environment using tools such as Prometheus, Grafana, and Elasticsearch to collect and analyze metrics, logs and traces. This will help you identify and troubleshoot issues, and ensure that the environment is healthy.
+
+Backup and Disaster Recovery: Implement a backup and disaster recovery strategy to ensure that your data is protected and can be quickly restored in case of an emergency. This can include using Kubernetes resources like Persistent Volumes, and using tools such as Velero, etc.
+
+Security: Implement security best practices such as network segmentation, role-based access control (RBAC), and secrets management to protect the environment and its resources. Regularly scan and audit the environment to detect and remediate vulnerabilities.
+
+Scalability: Ensure that the environment is scalable by using Kubernetes features such as autoscaling, and by monitoring resources to ensure that they are being used efficiently.
+
+Upgrades and Maintenance: Plan and execute regular upgrades and maintenance to ensure that the environment is running the latest version of Kubernetes and its dependencies. Use techniques like blue-green deployment, canary deployment, and rolling updates to minimize downtime.
+
+Incident Response: Have a plan in place for incident response, including identifying and isolating the problem, determining the cause, and implementing a solution.
+
+Resource Management: Use Kubernetes namespaces, resource quotas, and limit ranges to manage resources and ensure that they are being used efficiently.
+
+Automation: Automate repetitive tasks to reduce the risk of human error and to increase efficiency. This can include using tools like Ansible, Helm, etc.
+  
+  
+  
   159* In multi cluster arch of k8s, u have 2 clusters n each cluster has a diff VPC. if u create a EKS cluster, it will create 2 VPC in same region (Mumbai)
   160* then how can pod in cluster 1 can communicate with another pod in cluster 2?
+  
+  In a multi-cluster environment, pods in one cluster may need to communicate with pods in another cluster. There are several ways to achieve this:
+
+VPC Peering: You can create a VPC peering connection between the two VPCs. This allows resources in one VPC to communicate with resources in the other VPC over the internal IP addresses.
+
+VPN: You can use a VPN connection to connect the two VPCs. This allows resources in one VPC to communicate with resources in the other VPC over a secure, encrypted connection.
+
+Direct Connect: You can use AWS Direct Connect to establish a dedicated network connection between the two VPCs. This allows resources in one VPC to communicate with resources in the other VPC over a dedicated and reliable network path.
+
+Kubernetes Services: You can create Kubernetes Services in each cluster and use them to access the pods across the clusters.
+
+Multi-cluster Services: You can use a service mesh like Istio to create multi-cluster services and route traffic between clusters.
+
+AWS App Mesh: You can use AWS App Mesh to route traffic between clusters.
+  
+  
+  
   161* Difference between load balancer and ingree. Y u need ingress
+  
+  
   162* How are you exposing your service
+  
+  ClusterIP: A ClusterIP service is only accessible within the cluster and is not exposed to external traffic.
+
+NodePort: A NodePort service is exposed on a specific port on each node in the cluster. External traffic can reach the service by accessing the node IP and the specified port.
+
+LoadBalancer: A LoadBalancer service is exposed on a cloud-provided load balancer. The load balancer is automatically created and configured by the cloud provider, and external traffic can reach the service by accessing the load balancer's IP or hostname.
+
+ExternalName: An ExternalName service is used to map a service to an external DNS name.
+
+Ingress: An Ingress is a way to route external traffic to services within a cluster based on the URL path. It is a collection of rules that allows inbound connections to reach the cluster services.
+
+These are the most common ways to expose a service, the choice depends on the requirement and the infrastructure available. For example, if you want to expose a service to external traffic, you can use NodePort, LoadBalancer or Ingress. If you want to map a service to an external DNS name, you can use ExternalName.
+  
+  
+  
+  
   163*  What is LDAP
+  LDAP (Lightweight Directory Access Protocol) is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services over an Internet Protocol (IP) network.
+
+LDAP is used to store and retrieve information in a hierarchical structure. The information is organized in a tree-like structure called a directory information tree (DIT). Each node in the tree is called an entry, and each entry has a set of attributes that describe it.
+  
+  
   164* deployment of apache with 3 replicas
+  
+  
   165* what is kubeconfig 
+  Kubeconfig is a configuration file that is used to store the connection details and authentication information for a Kubernetes cluster. It is typically used by command-line tools such as kubectl to interact with a Kubernetes cluster.
+
+The kubeconfig file is in YAML format and contains information such as the server URL for the cluster, the client certificate and key for authentication, and the names of the contexts that are defined for the cluster.
+
+A context is a named set of access parameters that define which cluster, user, and namespace kubectl commands are sent to. It is a simple way to switch between clusters and users.
+
+A kubeconfig file can contain multiple contexts, allowing you to switch easily between different clusters and users. The current context is the one that is used when you run kubectl commands.
+
+The kubeconfig file is usually located at ~/.kube/config on macOS and Linux, and at %USERPROFILE%\.kube\config on Windows.
+
+You can also specify a different location for the kubeconfig file by setting the KUBECONFIG environment variable to the path of the file you want to use. This can be useful if you have multiple kubeconfig files for different clusters and you want to switch between them.
+
+In summary, kubeconfig is a configuration file that is used to store the connection details and authentication information for a Kubernetes cluster, allowing you to interact with the cluster using kubectl command. It also allows you to switch between different clusters and users by creating multiple contexts in the kubeconfig file
+  
+  
+  
   166* Explain the plugins you used
   167* How you secure your clusters
+  
+  Network segmentation: Use network segmentation to limit the communication between resources in the cluster. This can be done using Kubernetes Network Policies or by using a third-party network plugin.
+
+Role-based access control (RBAC): Use RBAC to control access to resources in the cluster. This allows you to define roles and permissions for users and groups, and to limit access to resources based on those roles and permissions.
+
+Authentication and Authorization: Use authentication and authorization mechanisms to control access to the Kubernetes API. This can be done using tools like x509 certificate, token-based authentication, and OpenID Connect.
+
+Secrets Management: Use Kubernetes Secrets to store sensitive information such as passwords and tokens. This allows you to store this information in an encrypted form, and to control access to it using RBAC.
+
+Pod Security Policies: Use Pod Security Policies to control the security settings for pods running in the cluster. This allows you to set policies for things like runAsUser, runAsGroup, and seLinuxOptions
+
+Regular Auditing and scanning: Regularly audit and scan your cluster to detect and remediate any vulnerabilities. This can be done using tools such as Kubernetes Auditing and Kubernetes Admission Controllers.
+
+Regular Auditing and scanning: Regularly audit and scan your cluster to detect and remediate any vulnerabilities. This can be done using tools such as Kubernetes Auditing and Kubernetes Admission Controllers.
+
+Container Image scanning: Perform regular scanning of container images to ensure that they are free of vulnerabilities and malware. This can be done using tools such as Aqua Security and Snyk.
+
+Use Kubernetes namespaces to divide the cluster into multiple virtual clusters, each with its own set of resources and access controls.
+  
+  
   168* What is the purpose of ingress and how you connect it
   169*  manifest file for deployment with autoscaling in it from 3-7 pods
   170*  manifest file for secrets and volume attach
+  
+  
   171*  How u connect ingress
+  
   172*  which controller u r using
+        Development , statefulset
+  
   173* how many master and worker node you have
   174* how many clusters
+      Ask
+  
   175* How Kubernetes namespace works
+  Namespace will create isolation to create a virtual cluster within the cluster 
+  
+  Resource isolation: Namespaces provide a way to isolate resources from each other. This allows for the creation of multiple environments, such as development, staging, and production, within a single cluster.
+
+Access control: Namespaces provide a way to control access to resources in a cluster. By creating different namespaces for different teams or projects, you can control which users or groups have access to specific resources.
+
+Resource quotas: Namespaces provide a way to set resource quotas for resources such as CPU and memory. This allows you to ensure that resources are allocated fairly and that no one team or project can monopolize the resources of the entire cluster.
+
+Resource sharing: Namespaces provide a way to share resources between different teams or projects. Resources can be shared across namespaces using Kubernetes objects such as ConfigMaps and Secrets.
+
+Organization: Namespaces provide a way to organize resources in a logical and meaningful way. This makes it easier to understand and manage the resources in a cluster, especially as the number of resources grows.
+  
   176* explain your k8s cluster and how many master and Node you have.
+  
+  
   177* how many master m/c and slave m/c do u have, what are type of instance you have have used 
+       
+                AKS AND CLARIFY
+  
+  
   178* kubernetics monitoring, clusterup  steps, instances used for k8s?
+     
+     K8S and EKS are both orchestration tool used deploy, autoscale and manage containererised application
+     Flexibility: Kubernetes is an open-source platform and can be deployed on-premises, in the cloud, or in a hybrid environment. EKS is a managed service offered by Amazon Web Services (AWS) and is only available in the AWS cloud.
+
+Community Support: Kubernetes has a large, active community that contributes to its development and offers support. EKS is a managed service, and while AWS provides support, the community is not as large or active.
+
+Integration: Kubernetes can be integrated with a wide range of tools and services, including those from other cloud providers. EKS, on the other hand, is integrated with AWS services and may have limited integration options.
+
+Cost: In general, running Kubernetes on-premises or in a different cloud provider can be more cost-effective than using EKS. However, the cost of running Kubernetes on a cloud provider will depend on the specific provider and the resources used.
+
+Features: EKS comes with some features out of the box like Automatic scaling, automatic backups of control plane, etc. However, Kubernetes can be customized to include these features through various plugins and add-ons.
+     
   179* why not eks?
+  
+  
   180* how you are deploying application in kubernetics
+  
+  I am creating an image using docker build and pushing it to docker registry 
+  and deploy the file k8s using k8s manifest file
+    
   181* how to create a pod on perticular worker node
+       using Node Selector and taint and tolerations
+       
   182* k8s services 
+        K8s service are cluster level obeject and are default load balancer
+        and Explain ClutserIP, Node Port, Headless service
+        
+        
   183* what is version of K8s and helm you ar using 
+  
+      K8s version is 1.25.0 and Helm Version is 3.10.2
+  
+  
   184* how 2 containers with 2 diffrece application can share the information
+        There are several ways for two containers running different applications to share information:
+
+Shared volumes: You can use a shared volume to mount the same directory in both containers, allowing them to read and write to the same files.
+
+Networking: You can use a container network to connect the two containers and allow them to communicate using a specified protocol (e.g. HTTP, TCP, etc.).
+
+Environment Variables: You can pass environment variables to the containers, which can be used to store and share information.
+
+Kubernetes ConfigMap: You can use a Kubernetes ConfigMap to store the configuration data that can be accessed by both the containers.
+
+External database: You can use an external database like MySQL, MongoDB, etc. and both the container can connect to it and share the data.
+
+It depends on your use case, what kind of data you want to share and what kind of information is needed to be shared.
+  
