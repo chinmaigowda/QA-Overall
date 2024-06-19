@@ -67,7 +67,7 @@
 		Need to make sure that we have GitHub plugin installed on Jenkins server
 		On Project --> Source Code Management --> select Git --> Give Repository URL 
 		Enable "GItHub hook trigger for GITScm Polling" and "Poll SCM"
-		On GitHUb --> Settings --> WebHook--> Add webhook --> Payload URL  (your repo link)--> Content type 'application/json' --> which even should trigger this webhook 'Just the push even' --> add webhook 
+		On GitHUb --> Settings --> WebHook--> Add webhook --> Payload URL  (your repo link)/github-webhook/--> Content type 'application/json' --> which even should trigger this webhook 'Just the push even' --> add webhook 
 
 21  how to send email notification to jenkins
 
@@ -326,7 +326,7 @@
 		• On Project --> Source Code Management --> select Git --> Give Repository URL 
 		• Enable "GItHub hook trigger for GITScm Polling" and "Poll SCM"
 		 
-		• On GitHUb --> Settings --> WebHook--> Add webhook --> Payload URL  (your repo link)/git-webhook --> Content type 'application/json' --> which even should trigger this webhook 'Just the push even' --> add webhook 
+		• On GitHUb --> Settings --> WebHook--> Add webhook --> Payload URL  (your repo link)/github-webhook --> Content type 'application/json' --> which even should trigger this webhook 'Just the push even' --> add webhook 
 
  116* How authentication of Jenkins and git is done
 	Jenkins authentication 
